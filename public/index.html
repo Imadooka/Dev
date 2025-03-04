@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fetch API จาก Express</title>
+  </head>
+  <body>
+    <h1>ตัวอย่าง Fetch API จาก Express</h1>
+    <button
+      style="
+        padding: 30px;
+        background-color: red;
+        border-radius: 10px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+      "
+      id="fetchBtn"
+    >
+      ดึงข้อมูล API
+    </button>
+    <div id="content" style="text-align: center; font-size: 20px"></div>
+
+    <script>
+      // เมื่อคลิกปุ่ม ให้ทำการ fetch API ที่ /api
+      document
+        .getElementById("fetchBtn")
+        .addEventListener("click", function () {
+          fetch("http://localhost:5001/api")
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              document.getElementById("content").innerText =
+                JSON.stringify(data);
+            })
+            .catch((error) => {
+              console.error("เกิดข้อผิดพลาด:", error);
+              document.getElementById("content").innerText =
+                "เกิดข้อผิดพลาดในการดึงข้อมูล";
+            });
+        });
+    </script>
+  </body>
+</html>
